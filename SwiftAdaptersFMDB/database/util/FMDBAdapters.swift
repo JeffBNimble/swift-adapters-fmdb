@@ -205,7 +205,7 @@ public class FMDBResultSetWrapper:Cursor {
     private var fmResultSet:FMResultSet
     
     // An Array of dictionaries (1 per row) containing the rows cached (which are cached upon access)
-    var rowCache:[[String:AnyObject]]
+    private var rowCache:[[String:AnyObject]]
     
     public required init(resultSet:FMResultSet) {
         self.fmResultSet = resultSet
@@ -219,92 +219,95 @@ public class FMDBResultSetWrapper:Cursor {
     }
     
     public func boolFor(columnName:String) -> Bool {
-        return self.fmResultSet.boolForColumn(columnName)
+        return self.valueAt(columnName) as! Bool
     }
     
     public func boolFor(columnIndex:Int) -> Bool {
-        return self.fmResultSet.boolForColumnIndex(Int32(columnIndex))
+        return self.boolFor(self.columnNameFor(columnIndex))
     }
     
     public func close() -> Void {
-        return self.fmResultSet.close()
+        self.columnNames.removeAll()
+        self.rowCache.removeAll()
+        self.cursorPosition = -1
+        self.fmResultSet.close()
     }
     
     public func columnCount() -> Int {
-        return Int(self.fmResultSet.columnCount())
+        return self.columnNames.count
     }
     
     public func columnIndexFor(columnName:String) -> Int {
-        return Int(self.fmResultSet.columnIndexForName(columnName))
+        return self.columnNames.indexOf(columnName.lowercaseString)!
     }
     
     public func columnAtIndexIsNull(columnIndex:Int) -> Bool {
-        return self.fmResultSet.columnIndexIsNull(Int32(columnIndex))
+        return self.columnIsNull(self.columnNameFor(columnIndex))
     }
     
     public func columnIsNull(columnName:String) -> Bool {
-        return self.fmResultSet.columnIsNull(columnName)
+        guard self.valueAt(columnName) == nil else {
+            return true
+        }
+        
+        return false
     }
     
     public func columnNameFor(columnIndex:Int) -> String {
-        return self.fmResultSet.columnNameForIndex(Int32(columnIndex))
+        return self.columnNames[columnIndex]
     }
     
     public func dataFor(columnName:String) -> NSData {
-        return self.fmResultSet.dataForColumn(columnName)
+        return self.valueAt(columnName.lowercaseString) as! NSData
     }
     
     public func dataFor(columnIndex:Int) -> NSData {
-        return self.fmResultSet.dataForColumnIndex(Int32(columnIndex))
+        return self.dataFor(self.columnNameFor(columnIndex))
     }
     
     public func dateFor(columnName:String) -> NSDate {
-        return self.fmResultSet.dateForColumn(columnName)
+        return self.valueAt(columnName) as! NSDate
     }
     
     public func dateFor(columnIndex:Int) -> NSDate {
-        return self.fmResultSet.dateForColumnIndex(Int32(columnIndex))
+        return self.dateFor(self.columnNameFor(columnIndex))
     }
     
     public func doubleFor(columnName:String) -> Double {
-        return self.fmResultSet.doubleForColumn(columnName)
+        return self.valueAt(columnName) as! Double
     }
     
     public func doubleFor(columnIndex:Int) -> Double {
-        return self.fmResultSet.doubleForColumnIndex(Int32(columnIndex))
+        return self.doubleFor(self.columnNameFor(columnIndex))
     }
     
     public func intFor(columnName:String) -> Int {
-        return Int(self.fmResultSet.intForColumn(columnName))
+        return self.valueAt(columnName) as! Int
     }
     
     public func intFor(columnIndex:Int) -> Int {
-        return Int(self.fmResultSet.intForColumnIndex(Int32(columnIndex)))
+        return self.intFor(self.columnNameFor(columnIndex))
     }
     
     public func longFor(columnName:String) -> Int32 {
-        return self.fmResultSet.intForColumn(columnName)
+        return self.valueAt(columnName) as! Int32
     }
     
     public func longFor(columnIndex:Int) -> Int32 {
-        return Int32(self.fmResultSet.longForColumnIndex(Int32(columnIndex)))
+        return self.longFor(self.columnNameFor(columnIndex))
     }
     
     public func longLongIntFor(columnName:String) -> Int64 {
-        return Int64(self.fmResultSet.longLongIntForColumn(columnName))
+        return self.valueAt(columnName) as! Int64
     }
     
     public func longLongIntFor(columnIndex:Int) -> Int64 {
-        return Int64(self.fmResultSet.longLongIntForColumnIndex(Int32(columnIndex)))
+        return self.longLongIntFor(self.columnNameFor(columnIndex))
     }
     
     public func moveTo(offset:Int) -> Bool {
-        guard self.ensureRowCacheUpTo(self.cursorPosition + offset) else {
-            return false
-        }
-        
-        self.cursorPosition += offset
-        return true
+        let moved = self.moveToPosition(self.cursorPosition + offset)
+        return moved
     }
     
     public func moveToFirst() -> Bool {
@@ -324,6 +327,12 @@ public class FMDBResultSetWrapper:Cursor {
     }
     
     public func moveToPosition(absolutePosition:Int) -> Bool {
+        // Ensure that the requested position is valid
+        guard absolutePosition >= 0 else {
+            return false
+        }
+        
+        // Ensure that I've resolved the row cache up to and including the requested position
         guard self.ensureRowCacheUpTo(absolutePosition) else {
             return false
         }
@@ -337,44 +346,64 @@ public class FMDBResultSetWrapper:Cursor {
     }
     
     public func previous() -> Bool {
-        return self.moveTo(-1)
+        guard self.cursorPosition > 0 else {
+            return false
+        }
+        self.cursorPosition--
+        return true
     }
     
     public func stringFor(columnName:String) -> String {
-        return self.fmResultSet.stringForColumn(columnName)
+        return self.valueAt(columnName) as! String
     }
     
     public func stringFor(columnIndex:Int) -> String {
-        return self.fmResultSet.stringForColumnIndex(Int32(columnIndex))
+        return self.stringFor(self.columnNameFor(columnIndex))
     }
     
     public func unsignedLongLongIntFor(columnName:String) -> UInt64 {
-        return self.fmResultSet.unsignedLongLongIntForColumn(columnName)
+        return self.valueAt(columnName) as! UInt64
     }
     
     public func unsignedLongLongIntFor(columnIndex:Int) -> UInt64 {
-        return self.fmResultSet.unsignedLongLongIntForColumnIndex(Int32(columnIndex))
+        return self.unsignedLongLongIntFor(self.columnNameFor(columnIndex))
+    }
+    
+    private func cachedRowAt(cursorPosition:Int) -> [String:AnyObject]? {
+        guard cursorPosition <= self.rowCache.count else {
+            return nil
+        }
+        
+        return self.rowCache[cursorPosition]
     }
     
     private func ensureRowCacheUpTo(cachePosition:Int) -> Bool {
-        guard self.rowCache.count < self.cursorPosition else {
+        guard self.rowCache.count < cachePosition else {
             return true
         }
         
         for _ in 0...cachePosition {
-            guard self.next() else {
+            guard self.fmResultSet.next() else {
                 return false
             }
             
             self.rowCache.append(self.fmResultSet.resultDictionary() as! [String:AnyObject])
         }
-    
+
         return true
     }
 
     private func initializedColumnNames() {
-        for index in 0..<self.columnCount() {
-            self.columnNames.append(self.fmResultSet.columnNameForIndex(Int32(index)))
+        for index in 0..<self.fmResultSet.columnCount() {
+            self.columnNames.append(self.fmResultSet.columnNameForIndex(Int32(index)).lowercaseString)
         }
+    }
+    
+    private func valueAt(columnName:String) -> AnyObject? {
+        guard let row = self.cachedRowAt(self.cursorPosition) else {
+            return nil
+        }
+        
+        return row[columnName.lowercaseString] is NSNull ? nil : row[columnName.lowercaseString]
     }
 }
