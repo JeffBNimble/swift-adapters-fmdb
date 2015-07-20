@@ -14,4 +14,7 @@
          location = "group:Carthage/Checkouts/swift-protocols-sqlite/SwiftProtocolsSQLite.xcodeproj">
       </FileRef>
    </Group>
+   <FileRef
+      location = "group:FMDBAdaptersPlayground.playground">
+   </FileRef>
 </Workspace>
