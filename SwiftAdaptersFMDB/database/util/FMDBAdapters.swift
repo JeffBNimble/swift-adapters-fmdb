@@ -8,6 +8,8 @@ import SwiftProtocolsSQLite
 import fmdbframework
 
 public class FMDBDatabaseFactory:SQLiteDatabaseFactory {
+    public required init() {}
+    
     public func createWithPath(absolutePath:String?) -> SQLiteDatabase {
         return FMDBDatabaseWrapper(path:absolutePath)
     }
