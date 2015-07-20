@@ -1,0 +1,2 @@
+github "JeffBNimble/fmdb" "carthage"
+github "JeffBNimble/swift-protocols-sqlite" "b8dbd70b1a25d7c96a4b254e589fc6d9ddfa94f4"
