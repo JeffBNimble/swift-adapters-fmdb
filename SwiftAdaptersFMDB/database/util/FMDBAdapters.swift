@@ -195,6 +195,9 @@ public class FMDBDatabaseWrapper:SQLiteDatabase {
 }
 
 public class FMDBResultSetWrapper:Cursor {
+    /// A flag indicating whether the end of the wrapped FMResultSet has been reached
+    private var atEnd = false
+    
     /// A cached array of column names in column index order
     private var columnNames = [String]()
     
@@ -321,8 +324,7 @@ public class FMDBResultSetWrapper:Cursor {
     
     public func moveToLast() -> Bool {
         self.ensureRowCacheUpTo(Int.max)
-        
-        self.cursorPosition = self.rowCache.count
+        self.cursorPosition = self.rowCache.count - 1
         return true
     }
     
@@ -378,12 +380,20 @@ public class FMDBResultSetWrapper:Cursor {
     }
     
     private func ensureRowCacheUpTo(cachePosition:Int) -> Bool {
+        // If we already have more rows in the cache than what is being requested, bail
         guard self.rowCache.count < cachePosition else {
             return true
         }
         
+        // If we've already reached the end of the wrapped result set, don't read on
+        guard !atEnd else {
+            return false
+        }
+        
+        // Fill the rowcache up to the specified position or until we reach the end
         for _ in 0...cachePosition {
             guard self.fmResultSet.next() else {
+                self.atEnd = true
                 return false
             }
             
