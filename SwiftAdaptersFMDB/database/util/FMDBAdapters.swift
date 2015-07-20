@@ -305,7 +305,7 @@ public class FMDBResultSetWrapper:Cursor {
         return self.longLongIntFor(self.columnNameFor(columnIndex))
     }
     
-    public func moveTo(offset:Int) -> Bool {
+    public func move(offset:Int) -> Bool {
         let moved = self.moveToPosition(self.cursorPosition + offset)
         return moved
     }
@@ -342,7 +342,7 @@ public class FMDBResultSetWrapper:Cursor {
     }
     
     public func next() -> Bool {
-        return self.moveTo(1)
+        return self.move(1)
     }
     
     public func previous() -> Bool {
