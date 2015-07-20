@@ -4,10 +4,14 @@
    <FileRef
       location = "group:SwiftAdaptersFMDB.xcodeproj">
    </FileRef>
-   <FileRef
-      location = "group:Carthage/Checkouts/fmdb/fmdb.xcodeproj">
-   </FileRef>
-   <FileRef
-      location = "group:Carthage/Checkouts/swift-protocols-sqlite/SwiftProtocolsSQLite.xcodeproj">
-   </FileRef>
+   <Group
+      location = "container:"
+      name = "External">
+      <FileRef
+         location = "group:Carthage/Checkouts/fmdb/fmdb.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:Carthage/Checkouts/swift-protocols-sqlite/SwiftProtocolsSQLite.xcodeproj">
+      </FileRef>
+   </Group>
 </Workspace>
