@@ -314,18 +314,16 @@ public class FMDBResultSetWrapper:Cursor {
     }
     
     public func moveToFirst() -> Bool {
-        guard self.ensureRowCacheUpTo(1) else {
-            return false
-        }
+        self.ensureRowCacheUpTo(1)
         
-        self.cursorPosition = 0
-        return true
+        self.cursorPosition = self.rowCache.count == 0 ? self.cursorPosition : 0
+        return self.cursorPosition == 0
     }
     
     public func moveToLast() -> Bool {
         self.ensureRowCacheUpTo(Int.max)
         self.cursorPosition = self.rowCache.count - 1
-        return true
+        return self.rowCache.count > 0
     }
     
     public func moveToPosition(absolutePosition:Int) -> Bool {
@@ -334,13 +332,12 @@ public class FMDBResultSetWrapper:Cursor {
             return false
         }
         
-        // Ensure that I've resolved the row cache up to and including the requested position
-        guard self.ensureRowCacheUpTo(absolutePosition) else {
-            return false
-        }
+        let oldPosition = self.cursorPosition
         
-        self.cursorPosition = absolutePosition
-        return true
+        // Ensure that I've resolved the row cache up to and including the requested position
+        self.ensureRowCacheUpTo(absolutePosition)
+        self.cursorPosition = absolutePosition < self.rowCache.count ? absolutePosition : self.cursorPosition
+        return self.cursorPosition != oldPosition
     }
     
     public func next() -> Bool {

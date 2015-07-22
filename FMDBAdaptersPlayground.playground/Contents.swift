@@ -2,35 +2,96 @@
 
 import UIKit
 import SwiftAdaptersFMDB
+import SwiftProtocolsSQLite
 
 var str = "Hello, FMDBAdapters Playground"
 
+/// Create the FMDB database factory and an in-memory database
 var factory = FMDBDatabaseFactory()
 var db = factory.createWithPath(nil)
 
+/// Open it, create a table and insert some rows
 try db.open()
 
 var createStatement = "CREATE TABLE champion (id INTEGER NOT NULL PRIMARY KEY, name TEXT NOT NULL, title TEXT NOT NULL, blurb TEXT NOT NULL, key TEXT NOT NULL, image_url TEXT NOT NULL)"
-var count = try db.executeUpdate(createStatement)
-var cursor = try db.executeQuery("SELECT * FROM CHAMPION")
-var cursorWrapper = cursor as! FMDBResultSetWrapper
-cursor.next()
+try db.executeUpdate(createStatement)
 
-cursor.close()
+var insertStatement = "INSERT INTO champion (id, name, title, blurb, key, image_url) values (1, \"Annie\", \"The marked assassin\", \"Whatevs\", \"A001\", \"http://datadragon.riotgames.com/images/A001.png\")"
+try db.executeUpdate(insertStatement)
+insertStatement = "INSERT INTO champion (id, name, title, blurb, key, image_url) values (2, \"Alistar\", \"Bad Mamma Jamma\", \"Mean, mean\", \"A002\", \"http://datadragon.riotgames.com/images/A002.png\")"
+try db.executeUpdate(insertStatement)
+insertStatement = "INSERT INTO champion (id, name, title, blurb, key, image_url) values (3, \"Ziggs\", \"Bombs away!!\", \"TNT\", \"A003\", \"http://datadragon.riotgames.com/images/A003.png\")"
+try db.executeUpdate(insertStatement)
 
-createStatement = "INSERT INTO champion (id, name, title, blurb, key, image_url) values (1, \"Annie\", \"The marked assassin\", \"Whatevs\", \"A001\", \"http://datadragon.riotgames.com/images/A001.png\")"
-count = try db.executeUpdate(createStatement)
-cursor = try db.executeQuery("SELECT * FROM CHAMPION")
-cursorWrapper = cursor as! FMDBResultSetWrapper
-cursor.columnCount()
-for index in 0..<cursor.columnCount() {
-    cursor.columnNameFor(index)
+// Execute a query and get back a cursor
+var cursor = try db.executeQuery("SELECT * FROM champion ORDER BY name asc")
+
+// Loop through and print out some data
+while cursor.next() {
+    var id = cursor.intFor("id")
+    var name = cursor.stringFor("name")
+    var title = cursor.stringFor("title")
+    print("Champion \(id) named \(name) - \(title)")
 }
-cursor.next()
-cursor.stringFor("name")
+
+/// Now, move around and make sure all is good
+cursor.moveToFirst()
+cursor.stringFor("name") == "Alistar"
 cursor.moveToLast()
-cursor.intFor("id")
-cursor.previous()
-cursor.next()
-cursor.next()
-cursor.close()
+cursor.stringFor("name") == "Ziggs"
+cursor.move(-1)
+cursor.stringFor("name") == "Annie"
+cursor.moveToPosition(0)
+cursor.stringFor("name") == "Alistar"
+cursor.moveToPosition(2)
+cursor.stringFor("name") == "Ziggs"
+
+// Now, lets use a SQLQueryOperation to run some queries
+var statementBuilder:SQLStatementBuilder = SQLiteStatementBuilder()
+var queryOperation = SQLQueryOperation(database:db, statementBuilder:statementBuilder)
+
+// Build a similar champion query
+queryOperation.tableName = "champion"
+queryOperation.projection = ["id", "name", "title"]
+queryOperation.sort = "name asc"
+
+var opCursor = try queryOperation.executeQuery()
+
+// Loop through this cursor and print out the data
+while opCursor.next() {
+    var name = opCursor.stringFor("name")
+    print("I found \(name)")
+}
+
+// Now, use a SQLUpdateOperation to delete a row using named parameters
+var namedUpdateOperation = SQLUpdateOperation(database: db, statementBuilder: statementBuilder)
+namedUpdateOperation.tableName = "champion"
+namedUpdateOperation.selection = "name = :name"
+namedUpdateOperation.namedSelectionArgs = ["name":"Annie"]
+
+try namedUpdateOperation.executeDelete()
+
+// Now, execute a count query using another query operation to verify that I have only 2 rows left
+var countQueryOperation = SQLQueryOperation(database:db, statementBuilder:statementBuilder)
+countQueryOperation.tableName = "champion"
+countQueryOperation.projection = ["count(*)"]
+
+var countCursor = try countQueryOperation.executeQuery()
+countCursor.next()
+countCursor.intFor(0)
+
+// Update Alistar using a named update operation
+var updateOperation = SQLUpdateOperation(database: db, statementBuilder: statementBuilder)
+updateOperation.tableName = "champion"
+updateOperation.selection = "name = :name"
+updateOperation.namedSelectionArgs = ["name":"Alistar"]
+updateOperation.contentValues = ["title":"Mean, Mean, Jelly Bean!"]
+try updateOperation.executeUpdate()
+
+// Finally, query Alistar to make sure he got updated
+queryOperation.selection = "name = :name"
+queryOperation.namedSelectionArgs = ["name":"Alistar"]
+
+countCursor = try queryOperation.executeQuery()
+countCursor.next()
+countCursor.stringFor("title") == "Mean, Mean, Jelly Bean!"
