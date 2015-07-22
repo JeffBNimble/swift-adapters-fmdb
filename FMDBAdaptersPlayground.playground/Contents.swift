@@ -3,8 +3,12 @@
 import UIKit
 import SwiftAdaptersFMDB
 import SwiftProtocolsSQLite
+import CocoaLumberjackSwift
 
 var str = "Hello, FMDBAdapters Playground"
+
+DDLog.addLogger(DDTTYLogger.sharedInstance())
+defaultDebugLevel = .Verbose
 
 /// Create the FMDB database factory and an in-memory database
 var factory = FMDBDatabaseFactory()
