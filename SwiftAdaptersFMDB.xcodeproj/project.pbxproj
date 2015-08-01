@@ -115,8 +115,8 @@
 		A53D10911B5B45990071984E /* SwiftAdaptersFMDB */ = {
 			isa = PBXGroup;
 			children = (
-				54C18F58B82FF3EDCE085B74 /* Supporting Files */,
 				54C184BEA53FE215DCA19FA0 /* database */,
+				54C18F58B82FF3EDCE085B74 /* Supporting Files */,
 			);
 			path = SwiftAdaptersFMDB;
 			sourceTree = "<group>";

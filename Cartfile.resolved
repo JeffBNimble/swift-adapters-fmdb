@@ -1,3 +1,4 @@
 github "CocoaLumberjack/CocoaLumberjack" "4dc87df698af9378051f5b5ae915dacb16f75ec5"
 github "JeffBNimble/fmdb" "ce6810901eef7b6c36e03e5451ebf83aad348a2b"
-github "JeffBNimble/swift-protocols-sqlite" "1be909d8393730e5b4cbb25e4960ef5037e163f3"
+github "JeffBNimble/swift-protocols-core" "c054ca4a715760d80abd29f8c30ea9a91ee72362"
+github "JeffBNimble/swift-protocols-sqlite" "a9c8921e75a56805510ea4f5e8c0740426f3c47e"

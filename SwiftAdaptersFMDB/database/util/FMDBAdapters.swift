@@ -5,13 +5,15 @@
 
 import Foundation
 import SwiftProtocolsSQLite
+import SwiftProtocolsCore
 import fmdbframework
 
-public class FMDBDatabaseFactory:SQLiteDatabaseFactory {
+public class FMDBDatabaseFactory:Factory {
     public required init() {}
     
-    public func createWithPath(absolutePath:String?) -> SQLiteDatabase {
-        return FMDBDatabaseWrapper(path:absolutePath)
+    public func create<SQLiteDatabase>(createWith:AnyObject? = nil) -> SQLiteDatabase {
+        let absolutePath : String? = createWith == nil ? nil : createWith as? String
+        return FMDBDatabaseWrapper(path:absolutePath) as! SQLiteDatabase
     }
 }
 

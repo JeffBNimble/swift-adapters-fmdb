@@ -12,7 +12,7 @@ defaultDebugLevel = .Verbose
 
 /// Create the FMDB database factory and an in-memory database
 var factory = FMDBDatabaseFactory()
-var db = factory.createWithPath(nil)
+var db : SQLiteDatabase = factory.create()
 
 /// Open it, create a table and insert some rows
 try db.open()
