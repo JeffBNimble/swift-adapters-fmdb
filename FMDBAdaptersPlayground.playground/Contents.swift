@@ -15,7 +15,9 @@ var factory = FMDBDatabaseFactory()
 var db : SQLiteDatabase = factory.create()
 
 /// Open it, create a table and insert some rows
+db.isOpen
 try db.open()
+db.isOpen
 
 var createStatement = "CREATE TABLE champion (id INTEGER NOT NULL PRIMARY KEY, name TEXT NOT NULL, title TEXT NOT NULL, blurb TEXT NOT NULL, key TEXT NOT NULL, image_url TEXT NOT NULL)"
 try db.executeUpdate(createStatement)

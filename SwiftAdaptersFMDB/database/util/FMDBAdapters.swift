@@ -32,11 +32,7 @@ public class FMDBDatabaseWrapper:SQLiteDatabase {
     }
     
     /// isOpen: A boolean indicating whether the database is currently open
-    public var isOpen:Bool {
-        get {
-            return self.fmdatabase.open()
-        }
-    }
+    private(set) public var isOpen:Bool = false
     
     /// lastInsertedRowId: The unique id of the row last inserted
     public var lastInsertedRowId:Int {
@@ -56,9 +52,9 @@ public class FMDBDatabaseWrapper:SQLiteDatabase {
     /// Returns: A boolean indicating whether or not the database was successfully opened
     /// Throws: A SQLiteDatabaseError if the database could not be opened
     public func open() throws -> Bool {
-        let wasOpened = self.fmdatabase.open()
+        self.isOpen = self.fmdatabase.open()
         guard self.fmdatabase.hadError() else {
-            return wasOpened
+            return self.isOpen
         }
         
         throw self.fmdatabase.lastError()
@@ -70,6 +66,7 @@ public class FMDBDatabaseWrapper:SQLiteDatabase {
     public func close() throws -> Bool {
         let wasClosed = self.fmdatabase.close()
         guard self.fmdatabase.hadError() else {
+            self.isOpen = false
             return wasClosed
         }
         
