@@ -8,12 +8,13 @@ import SwiftProtocolsSQLite
 import SwiftProtocolsCore
 import fmdbframework
 
-public class FMDBDatabaseFactory:Factory {
+@objc
+public class FMDBDatabaseFactory:DatabaseFactory {
     public required init() {}
     
-    public func create<SQLiteDatabase>(createWith:AnyObject? = nil) -> SQLiteDatabase {
-        let absolutePath : String? = createWith == nil ? nil : createWith as? String
-        return FMDBDatabaseWrapper(path:absolutePath) as! SQLiteDatabase
+    public func create(with:AnyObject? = nil) throws -> SQLiteDatabase {
+        let absolutePath : String? = with == nil ? nil : with as? String
+        return FMDBDatabaseWrapper(path:absolutePath) as SQLiteDatabase
     }
 }
 
