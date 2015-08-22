@@ -12,9 +12,8 @@ import fmdbframework
 public class FMDBDatabaseFactory:DatabaseFactory {
     public required init() {}
     
-    public func create(with:AnyObject? = nil) throws -> SQLiteDatabase {
-        let absolutePath : String? = with == nil ? nil : with as? String
-        return FMDBDatabaseWrapper(path:absolutePath) as SQLiteDatabase
+    override public func create(with:String?) throws -> SQLiteDatabase {
+        return FMDBDatabaseWrapper(path:with) as SQLiteDatabase
     }
 }
 
