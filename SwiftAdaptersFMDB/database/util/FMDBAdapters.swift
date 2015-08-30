@@ -331,12 +331,10 @@ public class FMDBResultSetWrapper:Cursor {
             return false
         }
         
-        let oldPosition = self.cursorPosition
-        
         // Ensure that I've resolved the row cache up to and including the requested position
         self.ensureRowCacheUpTo(absolutePosition)
         self.cursorPosition = absolutePosition < self.rowCache.count ? absolutePosition : self.cursorPosition
-        return self.cursorPosition != oldPosition
+        return absolutePosition < self.rowCache.count
     }
     
     public func next() -> Bool {
@@ -376,8 +374,10 @@ public class FMDBResultSetWrapper:Cursor {
     }
     
     private func ensureRowCacheUpTo(cachePosition:Int) -> Bool {
+        let currentMaxPosition = self.rowCache.count - 1
+        
         // If we already have more rows in the cache than what is being requested, bail
-        guard self.rowCache.count < cachePosition else {
+        guard currentMaxPosition < cachePosition else {
             return true
         }
         
@@ -387,7 +387,7 @@ public class FMDBResultSetWrapper:Cursor {
         }
         
         // Fill the rowcache up to the specified position or until we reach the end
-        for _ in 0...cachePosition {
+        for _ in currentMaxPosition...cachePosition {
             guard self.fmResultSet.next() else {
                 self.atEnd = true
                 return false
@@ -395,9 +395,10 @@ public class FMDBResultSetWrapper:Cursor {
             
             self.rowCache.append(self.fmResultSet.resultDictionary() as! [String:AnyObject])
         }
-
+        
         return true
     }
+
 
     private func initializedColumnNames() {
         for index in 0..<self.fmResultSet.columnCount() {
