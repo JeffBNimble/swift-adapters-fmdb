@@ -1,5 +1,5 @@
 # Introduction
-swift-adapters-fmdb is an iOS framework written in Swift 2. It is an a set of classes that conform to the [swift-protocols-sqlite](https://github.com/JeffBNimble/swift-protocols-sqlite) protocols so that you may seamlessly plug-in this implementation to your application that is written against the protocols.
+swift-adapters-fmdb is an iOS framework written in Swift 2. It is a set of classes that conform to the [swift-protocols-sqlite](https://github.com/JeffBNimble/swift-protocols-sqlite) protocols so that you may seamlessly plug-in this implementation to your application that is written against the protocols.
 
 I had to fork fmdb to add shared a shared schema so that I could build fmdb with [Carthage](https://github.com/Carthage/Carthage). If and when fmdb ever supports Carthage builds, the dependency on the fork can be replaced with a direct reference to fmdb.
 
@@ -31,7 +31,7 @@ do {
 }
 ```
 
-**Creating a SQLite database stored on the filesystem **
+**Creating a SQLite database stored on the filesystem**
 
 ```swift
 do {
