@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		54C18259570A9C6549ECDCE6 /* SwiftAdaptersFMDBTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C1809C56995AB8CB030C53 /* SwiftAdaptersFMDBTests.swift */; };
 		54C187DC0636398D925B6BB6 /* FMDBAdapters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C184D3358C6144E2E1973F /* FMDBAdapters.swift */; };
+		54C18883B1B77F99494EF1AE /* FMDBDatabaseWrapperIntegrationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C18965607414160BAF0737 /* FMDBDatabaseWrapperIntegrationTest.swift */; };
 		54C18CCA9FDE46F7F7464CC7 /* SwiftAdaptersFMDB.h in Headers */ = {isa = PBXBuildFile; fileRef = 54C18B9677D2F46EDAEC61E9 /* SwiftAdaptersFMDB.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A53D109A1B5B45990071984E /* SwiftAdaptersFMDB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A53D108F1B5B45990071984E /* SwiftAdaptersFMDB.framework */; };
 		A53D10AA1B5B49F20071984E /* SwiftProtocolsSQLite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A53D10A91B5B49F20071984E /* SwiftProtocolsSQLite.framework */; };
@@ -26,8 +26,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		54C1809C56995AB8CB030C53 /* SwiftAdaptersFMDBTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftAdaptersFMDBTests.swift; sourceTree = "<group>"; };
 		54C184D3358C6144E2E1973F /* FMDBAdapters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FMDBAdapters.swift; sourceTree = "<group>"; };
+		54C18965607414160BAF0737 /* FMDBDatabaseWrapperIntegrationTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FMDBDatabaseWrapperIntegrationTest.swift; sourceTree = "<group>"; };
 		54C189C7B1DB1F4AA1695206 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.info; path = Info.plist; sourceTree = "<group>"; };
 		54C18AA082236E2F48411316 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.info; path = Info.plist; sourceTree = "<group>"; };
 		54C18B9677D2F46EDAEC61E9 /* SwiftAdaptersFMDB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwiftAdaptersFMDB.h; sourceTree = "<group>"; };
@@ -61,7 +61,6 @@
 		54C1801E55B3117F9A51D2A4 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				54C1809C56995AB8CB030C53 /* SwiftAdaptersFMDBTests.swift */,
 				54C189C7B1DB1F4AA1695206 /* Info.plist */,
 			);
 			path = "Supporting Files";
@@ -125,6 +124,7 @@
 			isa = PBXGroup;
 			children = (
 				54C1801E55B3117F9A51D2A4 /* Supporting Files */,
+				54C18965607414160BAF0737 /* FMDBDatabaseWrapperIntegrationTest.swift */,
 			);
 			path = SwiftAdaptersFMDBTests;
 			sourceTree = "<group>";
@@ -244,7 +244,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				54C18259570A9C6549ECDCE6 /* SwiftAdaptersFMDBTests.swift in Sources */,
+				54C18883B1B77F99494EF1AE /* FMDBDatabaseWrapperIntegrationTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

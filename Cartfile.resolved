@@ -1,4 +1,6 @@
 github "CocoaLumberjack/CocoaLumberjack" "a7d670fce1750bfe06ecbc244ccf381d2240c5d6"
+github "Quick/Nimble" "v3.1.0"
+github "Quick/Quick" "v0.9.1"
 github "JeffBNimble/fmdb" "ce6810901eef7b6c36e03e5451ebf83aad348a2b"
 github "JeffBNimble/swift-protocols-core" "0.0.7"
 github "JeffBNimble/swift-protocols-sqlite" "0.0.13"

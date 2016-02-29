@@ -53,11 +53,11 @@ public class FMDBDatabaseWrapper:SQLiteDatabase {
     /// Throws: A SQLiteDatabaseError if the database could not be opened
     public func open() throws -> Bool {
         self.isOpen = self.fmdatabase.open()
-        guard self.fmdatabase.hadError() else {
-            return self.isOpen
+        guard !self.fmdatabase.hadError() else {
+            throw self.fmdatabase.lastError()
         }
-        
-        throw self.fmdatabase.lastError()
+
+        return self.isOpen
     }
     
     /// close: Close the database
@@ -65,12 +65,12 @@ public class FMDBDatabaseWrapper:SQLiteDatabase {
     /// THrows: A SQLiteDatabaseError if the database could not be opened
     public func close() throws -> Bool {
         let wasClosed = self.fmdatabase.close()
-        guard self.fmdatabase.hadError() else {
-            self.isOpen = false
-            return wasClosed
+        guard wasClosed else {
+            throw self.fmdatabase.lastError()
         }
-        
-        throw self.fmdatabase.lastError()
+
+        self.isOpen = false
+        return wasClosed
     }
     
     /// startTransaction: Starts a database transaction
@@ -78,11 +78,11 @@ public class FMDBDatabaseWrapper:SQLiteDatabase {
     /// Throws: A SQLiteDatabaseError if the transaction was not started
     public func startTransaction() throws -> Bool {
         let wasStarted = self.fmdatabase.beginTransaction()
-        guard self.fmdatabase.hadError() else {
-            return wasStarted
+        guard !self.fmdatabase.hadError() else {
+            throw self.fmdatabase.lastError()
         }
-        
-        throw self.fmdatabase.lastError()
+
+        return wasStarted
     }
     
     /// commit: Commits an existing database transaction
@@ -90,11 +90,11 @@ public class FMDBDatabaseWrapper:SQLiteDatabase {
     /// Thows: A SQLiteDatbaseError if the transaction was not committed
     public func commit() throws -> Bool {
         let wasCommitted = self.fmdatabase.commit()
-        guard self.fmdatabase.hadError() else {
-            return wasCommitted
+        guard !self.fmdatabase.hadError() else {
+            throw self.fmdatabase.lastError()
         }
-        
-        throw self.fmdatabase.lastError()
+
+        return wasCommitted
     }
     
     /// rollback: Rolls back an existing database transaction
@@ -102,11 +102,11 @@ public class FMDBDatabaseWrapper:SQLiteDatabase {
     /// Throws: A SQLiterDatabaseError if the transation was not rolled bak
     public func rollback() throws -> Bool {
         let wasRolledBack = self.fmdatabase.rollback()
-        guard self.fmdatabase.hadError() else {
-            return wasRolledBack
+        guard !self.fmdatabase.hadError() else {
+            throw self.fmdatabase.lastError()
         }
-        
-        throw self.fmdatabase.lastError()
+
+        return wasRolledBack
     }
     
     /// executeUpdate: Executes a SQL statement that updates the database in some way
@@ -115,11 +115,11 @@ public class FMDBDatabaseWrapper:SQLiteDatabase {
     /// THrows: A SQLiteDatbaseError if the statement fails
     public func executeUpdate(sqlString: String) throws -> Int {
         self.fmdatabase.executeUpdate(sqlString, withArgumentsInArray: [AnyObject]())
-        guard self.fmdatabase.hadError() else {
-            return self.changes
+        guard !self.fmdatabase.hadError() else {
+            throw self.fmdatabase.lastError()
         }
-        
-        throw self.fmdatabase.lastError()
+
+        return self.changes
     }
     
     /// executeUpdate: Executes a SQL statement that updates the database in some way
@@ -129,11 +129,11 @@ public class FMDBDatabaseWrapper:SQLiteDatabase {
     /// THrows: A SQLiteDatbaseError if the statement fails
     public func executeUpdate(sqlString: String, parameters:[AnyObject]?) throws -> Int {
         self.fmdatabase.executeUpdate(sqlString, withArgumentsInArray: parameters)
-        guard self.fmdatabase.hadError() else {
-            return self.changes
+        guard !self.fmdatabase.hadError() else {
+            throw self.fmdatabase.lastError()
         }
-        
-        throw self.fmdatabase.lastError()
+
+        return self.changes
     }
     
     /// executeUpdate: Executes a SQL statement that updates the database in some way
@@ -143,11 +143,11 @@ public class FMDBDatabaseWrapper:SQLiteDatabase {
     /// THrows: A SQLiteDatbaseError if the statement fails
     public func executeUpdate(sqlString: String, parameters:[String:AnyObject]?) throws -> Int {
         self.fmdatabase.executeUpdate(sqlString, withParameterDictionary: parameters)
-        guard self.fmdatabase.hadError() else {
-            return self.changes
+        guard !self.fmdatabase.hadError() else {
+            throw self.fmdatabase.lastError()
         }
-        
-        throw self.fmdatabase.lastError()
+
+        return self.changes
     }
     
     /// executeQuery: Executes a SQL query statement that returns zero or more rows
@@ -156,11 +156,11 @@ public class FMDBDatabaseWrapper:SQLiteDatabase {
     /// THrows: A SQLiteDatbaseError if the statement fails
     public func executeQuery(sqlString: String) throws -> Cursor {
         let resultSet = self.fmdatabase.executeQuery(sqlString, withArgumentsInArray:[AnyObject]())
-        guard self.fmdatabase.hadError() else {
-            return FMDBResultSetWrapper(resultSet: resultSet)
+        guard !self.fmdatabase.hadError() else {
+            throw self.fmdatabase.lastError()
         }
-        
-        throw self.fmdatabase.lastError()
+
+        return FMDBResultSetWrapper(resultSet: resultSet)
     }
     
     /// executeQuery: Executes a SQL query statement that returns zero or more rows
@@ -170,11 +170,11 @@ public class FMDBDatabaseWrapper:SQLiteDatabase {
     /// THrows: A SQLiteDatbaseError if the statement fails
     public func executeQuery(sqlString: String, parameters:[AnyObject]?) throws -> Cursor {
         let resultSet = self.fmdatabase.executeQuery(sqlString, withArgumentsInArray:parameters)
-        guard self.fmdatabase.hadError() else {
-            return FMDBResultSetWrapper(resultSet: resultSet)
+        guard !self.fmdatabase.hadError() else {
+            throw self.fmdatabase.lastError()
         }
-        
-        throw self.fmdatabase.lastError()
+
+        return FMDBResultSetWrapper(resultSet: resultSet)
     }
     
     /// executeQuery: Executes a SQL query statement that returns zero or more rows
@@ -184,11 +184,11 @@ public class FMDBDatabaseWrapper:SQLiteDatabase {
     /// THrows: A SQLiteDatbaseError if the statement fails
     public func executeQuery(sqlString: String, parameters:[String:AnyObject]?) throws -> Cursor {
         let resultSet = self.fmdatabase.executeQuery(sqlString, withParameterDictionary:parameters)
-        guard self.fmdatabase.hadError() else {
-            return FMDBResultSetWrapper(resultSet: resultSet)
+        guard !self.fmdatabase.hadError() else {
+            throw self.fmdatabase.lastError()
         }
-        
-        throw self.fmdatabase.lastError()
+
+        return FMDBResultSetWrapper(resultSet: resultSet)
     }
     
 }
