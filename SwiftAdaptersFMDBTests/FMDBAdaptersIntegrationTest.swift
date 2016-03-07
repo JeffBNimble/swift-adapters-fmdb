@@ -1,5 +1,5 @@
 //
-//  FMDBDatabaseWrapperIntegrationTest.swift
+//  FMDBAdaptersIntegrationTest.swift
 //  SwiftAdaptersFMDBTests
 //
 //  Created by Jeff Roberts on 7/18/15.
@@ -10,7 +10,7 @@ import XCTest
 @testable import SwiftAdaptersFMDB
 import SwiftProtocolsSQLite
 
-class FMDBDatabaseWrapperIntegrationTest: XCTestCase {
+class FMDBAdaptersIntegrationTest: XCTestCase {
     var database:SQLiteDatabase!
     var cursor:Cursor?
 
