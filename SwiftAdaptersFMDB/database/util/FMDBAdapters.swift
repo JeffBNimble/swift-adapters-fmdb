@@ -41,7 +41,7 @@ public class FMDBDatabaseWrapper:SQLiteDatabase {
         }
     }
     
-    /// path: THe absolute path to the sqlite3 database file
+    /// path: The absolute path to the sqlite3 database file
     public var path:String? {
         get {
             return self.fmdatabase.databasePath()
@@ -62,7 +62,7 @@ public class FMDBDatabaseWrapper:SQLiteDatabase {
     
     /// close: Close the database
     /// Returns: A boolean indicating whether or not the database was successfully closed
-    /// THrows: A SQLiteDatabaseError if the database could not be opened
+    /// Throws: A SQLiteDatabaseError if the database could not be opened
     public func close() throws -> Bool {
         let wasClosed = self.fmdatabase.close()
         guard wasClosed else {
@@ -87,7 +87,7 @@ public class FMDBDatabaseWrapper:SQLiteDatabase {
     
     /// commit: Commits an existing database transaction
     /// Returns: A boolean indicating whether or not the commit was successful
-    /// Thows: A SQLiteDatbaseError if the transaction was not committed
+    /// Thows: A SQLiteDatabaseError if the transaction was not committed
     public func commit() throws -> Bool {
         let wasCommitted = self.fmdatabase.commit()
         guard !self.fmdatabase.hadError() else {
@@ -99,7 +99,7 @@ public class FMDBDatabaseWrapper:SQLiteDatabase {
     
     /// rollback: Rolls back an existing database transaction
     /// Returns: A boolean indicting whether or not the transaction as successfully rolled back
-    /// Throws: A SQLiterDatabaseError if the transation was not rolled bak
+    /// Throws: A SQLiteDatabaseError if the transation was not rolled bak
     public func rollback() throws -> Bool {
         let wasRolledBack = self.fmdatabase.rollback()
         guard !self.fmdatabase.hadError() else {
@@ -110,9 +110,9 @@ public class FMDBDatabaseWrapper:SQLiteDatabase {
     }
     
     /// executeUpdate: Executes a SQL statement that updates the database in some way
-    /// Parameter sqlString: THe SQL string to execute
+    /// Parameter sqlString: The SQL string to execute
     /// Returns: The number of rows inserted/updated/deleted
-    /// THrows: A SQLiteDatbaseError if the statement fails
+    /// Throws: A SQLiteDatabaseError if the statement fails
     public func executeUpdate(sqlString: String) throws -> Int {
         self.fmdatabase.executeUpdate(sqlString, withArgumentsInArray: [AnyObject]())
         guard !self.fmdatabase.hadError() else {
@@ -123,10 +123,10 @@ public class FMDBDatabaseWrapper:SQLiteDatabase {
     }
     
     /// executeUpdate: Executes a SQL statement that updates the database in some way
-    /// Parameter sqlString: THe SQL string to execute
+    /// Parameter sqlString: The SQL string to execute
     /// Parameter parameters: An Array of parameters that are bound to parameter markers in the SQL
     /// Returns: The number of rows inserted/updated/deleted
-    /// THrows: A SQLiteDatbaseError if the statement fails
+    /// Throws: A SQLiteDatabaseError if the statement fails
     public func executeUpdate(sqlString: String, parameters:[AnyObject]?) throws -> Int {
         self.fmdatabase.executeUpdate(sqlString, withArgumentsInArray: parameters)
         guard !self.fmdatabase.hadError() else {
@@ -137,10 +137,10 @@ public class FMDBDatabaseWrapper:SQLiteDatabase {
     }
     
     /// executeUpdate: Executes a SQL statement that updates the database in some way
-    /// Parameter sqlString: THe SQL string to execute
+    /// Parameter sqlString: The SQL string to execute
     /// Parameter parameters: A Dictionary of parameters that are bound to bind variables in the SQL
     /// Returns: The number of rows inserted/updated/deleted
-    /// THrows: A SQLiteDatbaseError if the statement fails
+    /// Throws: A SQLiteDatabaseError if the statement fails
     public func executeUpdate(sqlString: String, parameters:[String:AnyObject]?) throws -> Int {
         self.fmdatabase.executeUpdate(sqlString, withParameterDictionary: parameters)
         guard !self.fmdatabase.hadError() else {
@@ -151,9 +151,9 @@ public class FMDBDatabaseWrapper:SQLiteDatabase {
     }
     
     /// executeQuery: Executes a SQL query statement that returns zero or more rows
-    /// Parameter sqlString: THe SQL string to execute
+    /// Parameter sqlString: The SQL string to execute
     /// Returns: A cursor containing the query results
-    /// THrows: A SQLiteDatbaseError if the statement fails
+    /// Throws: A SQLiteDatabaseError if the statement fails
     public func executeQuery(sqlString: String) throws -> Cursor {
         let resultSet = self.fmdatabase.executeQuery(sqlString, withArgumentsInArray:[AnyObject]())
         guard !self.fmdatabase.hadError() else {
@@ -164,10 +164,10 @@ public class FMDBDatabaseWrapper:SQLiteDatabase {
     }
     
     /// executeQuery: Executes a SQL query statement that returns zero or more rows
-    /// Parameter sqlString: THe SQL string to execute
+    /// Parameter sqlString: The SQL string to execute
     /// Parameter parameters: An Array of parameters that are bound to parameter markers in the SQL
     /// Returns: The number of rows inserted/updated/deleted
-    /// THrows: A SQLiteDatbaseError if the statement fails
+    /// Throws: A SQLiteDatabaseError if the statement fails
     public func executeQuery(sqlString: String, parameters:[AnyObject]?) throws -> Cursor {
         let resultSet = self.fmdatabase.executeQuery(sqlString, withArgumentsInArray:parameters)
         guard !self.fmdatabase.hadError() else {
@@ -178,10 +178,10 @@ public class FMDBDatabaseWrapper:SQLiteDatabase {
     }
     
     /// executeQuery: Executes a SQL query statement that returns zero or more rows
-    /// Parameter sqlString: THe SQL string to execute
+    /// Parameter sqlString: The SQL string to execute
     /// Parameter parameters: A Dictionary of parameters that are bound to bind variables in the SQL
     /// Returns: The number of rows inserted/updated/deleted
-    /// THrows: A SQLiteDatbaseError if the statement fails
+    /// Throws: A SQLiteDatabaseError if the statement fails
     public func executeQuery(sqlString: String, parameters:[String:AnyObject]?) throws -> Cursor {
         let resultSet = self.fmdatabase.executeQuery(sqlString, withParameterDictionary:parameters)
         guard !self.fmdatabase.hadError() else {
