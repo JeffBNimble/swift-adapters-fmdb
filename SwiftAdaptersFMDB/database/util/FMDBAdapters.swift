@@ -6,7 +6,7 @@
 import Foundation
 import SwiftProtocolsSQLite
 import SwiftProtocolsCore
-import fmdbframework
+import FMDB
 
 @objc
 public class FMDBDatabaseFactory:DatabaseFactory {
@@ -345,7 +345,7 @@ public class FMDBResultSetWrapper:Cursor {
         guard self.cursorPosition > 0 else {
             return false
         }
-        self.cursorPosition--
+        self.cursorPosition -= 1
         return true
     }
     

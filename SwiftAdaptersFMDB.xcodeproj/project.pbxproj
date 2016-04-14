@@ -10,9 +10,9 @@
 		54C187DC0636398D925B6BB6 /* FMDBAdapters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C184D3358C6144E2E1973F /* FMDBAdapters.swift */; };
 		54C18883B1B77F99494EF1AE /* FMDBAdaptersIntegrationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C18965607414160BAF0737 /* FMDBAdaptersIntegrationTest.swift */; };
 		54C18CCA9FDE46F7F7464CC7 /* SwiftAdaptersFMDB.h in Headers */ = {isa = PBXBuildFile; fileRef = 54C18B9677D2F46EDAEC61E9 /* SwiftAdaptersFMDB.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A5002D9C1CBF259700AE9ECC /* FMDB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5002D9B1CBF259700AE9ECC /* FMDB.framework */; };
 		A53D109A1B5B45990071984E /* SwiftAdaptersFMDB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A53D108F1B5B45990071984E /* SwiftAdaptersFMDB.framework */; };
 		A53D10AA1B5B49F20071984E /* SwiftProtocolsSQLite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A53D10A91B5B49F20071984E /* SwiftProtocolsSQLite.framework */; };
-		A53D10F01B5BF2220071984E /* fmdbframework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A53D10EF1B5BF2220071984E /* fmdbframework.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -31,6 +31,7 @@
 		54C189C7B1DB1F4AA1695206 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.info; path = Info.plist; sourceTree = "<group>"; };
 		54C18AA082236E2F48411316 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.info; path = Info.plist; sourceTree = "<group>"; };
 		54C18B9677D2F46EDAEC61E9 /* SwiftAdaptersFMDB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwiftAdaptersFMDB.h; sourceTree = "<group>"; };
+		A5002D9B1CBF259700AE9ECC /* FMDB.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FMDB.framework; path = "Carthage/Checkouts/fmdb/build/Debug-iphoneos/FMDB.framework"; sourceTree = "<group>"; };
 		A53D108F1B5B45990071984E /* SwiftAdaptersFMDB.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftAdaptersFMDB.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A53D10991B5B45990071984E /* SwiftAdaptersFMDBTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftAdaptersFMDBTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A53D10A91B5B49F20071984E /* SwiftProtocolsSQLite.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftProtocolsSQLite.framework; path = "Carthage/Checkouts/swift-protocols-sqlite/build/Debug-iphoneos/SwiftProtocolsSQLite.framework"; sourceTree = "<group>"; };
@@ -42,7 +43,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A53D10F01B5BF2220071984E /* fmdbframework.framework in Frameworks */,
+				A5002D9C1CBF259700AE9ECC /* FMDB.framework in Frameworks */,
 				A53D10AA1B5B49F20071984E /* SwiftProtocolsSQLite.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -94,6 +95,7 @@
 		A53D10851B5B45990071984E = {
 			isa = PBXGroup;
 			children = (
+				A5002D9B1CBF259700AE9ECC /* FMDB.framework */,
 				A53D10EF1B5BF2220071984E /* fmdbframework.framework */,
 				A53D10A91B5B49F20071984E /* SwiftProtocolsSQLite.framework */,
 				A53D10911B5B45990071984E /* SwiftAdaptersFMDB */,
@@ -355,7 +357,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/**";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SRCROOT)/**",
+					"$(PROJECT_DIR)/Carthage/Checkouts/fmdb/build/Debug-iphoneos",
+				);
 				INFOPLIST_FILE = "SwiftAdaptersFMDB/Supporting Files/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -374,7 +379,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/**";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SRCROOT)/**",
+					"$(PROJECT_DIR)/Carthage/Checkouts/fmdb/build/Debug-iphoneos",
+				);
 				INFOPLIST_FILE = "SwiftAdaptersFMDB/Supporting Files/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;

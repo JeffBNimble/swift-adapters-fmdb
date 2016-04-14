@@ -9,6 +9,7 @@
 import XCTest
 @testable import SwiftAdaptersFMDB
 import SwiftProtocolsSQLite
+import FMDB
 
 class FMDBAdaptersIntegrationTest: XCTestCase {
     var database:SQLiteDatabase!
