@@ -1,3 +1,2 @@
-github "JeffBNimble/fmdb" "carthage"
-github "JeffBNimble/swift-protocols-sqlite" "0.0.13"
-github "JeffBNimble/swift-protocols-core" "0.0.7"
+github "ccgus/fmdb" == 2.6.2
+github "JeffBNimble/swift-protocols-sqlite" == 0.0.14
