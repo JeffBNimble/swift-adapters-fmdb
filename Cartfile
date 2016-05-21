@@ -1,2 +1,2 @@
 github "ccgus/fmdb" == 2.6.2
-github "JeffBNimble/swift-protocols-sqlite" == 0.0.14
+github "JeffBNimble/swift-protocols-sqlite" == 0.0.15

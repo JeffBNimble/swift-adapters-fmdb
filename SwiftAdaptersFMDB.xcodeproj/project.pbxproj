@@ -10,9 +10,11 @@
 		54C187DC0636398D925B6BB6 /* FMDBAdapters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C184D3358C6144E2E1973F /* FMDBAdapters.swift */; };
 		54C18883B1B77F99494EF1AE /* FMDBAdaptersIntegrationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C18965607414160BAF0737 /* FMDBAdaptersIntegrationTest.swift */; };
 		54C18CCA9FDE46F7F7464CC7 /* SwiftAdaptersFMDB.h in Headers */ = {isa = PBXBuildFile; fileRef = 54C18B9677D2F46EDAEC61E9 /* SwiftAdaptersFMDB.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A5002D9C1CBF259700AE9ECC /* FMDB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5002D9B1CBF259700AE9ECC /* FMDB.framework */; };
+		A529E7BC1CF006B00014584C /* FMDB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A529E7B81CF006B00014584C /* FMDB.framework */; };
+		A529E7BD1CF006B00014584C /* SwiftProtocolsCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A529E7B91CF006B00014584C /* SwiftProtocolsCore.framework */; };
+		A529E7BE1CF006B00014584C /* SwiftProtocolsSQLite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A529E7BA1CF006B00014584C /* SwiftProtocolsSQLite.framework */; };
+		A529E7BF1CF006B00014584C /* SwiftyBeaver.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A529E7BB1CF006B00014584C /* SwiftyBeaver.framework */; };
 		A53D109A1B5B45990071984E /* SwiftAdaptersFMDB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A53D108F1B5B45990071984E /* SwiftAdaptersFMDB.framework */; };
-		A53D10AA1B5B49F20071984E /* SwiftProtocolsSQLite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A53D10A91B5B49F20071984E /* SwiftProtocolsSQLite.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -31,11 +33,12 @@
 		54C189C7B1DB1F4AA1695206 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.info; path = Info.plist; sourceTree = "<group>"; };
 		54C18AA082236E2F48411316 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.info; path = Info.plist; sourceTree = "<group>"; };
 		54C18B9677D2F46EDAEC61E9 /* SwiftAdaptersFMDB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwiftAdaptersFMDB.h; sourceTree = "<group>"; };
-		A5002D9B1CBF259700AE9ECC /* FMDB.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FMDB.framework; path = "Carthage/Checkouts/fmdb/build/Debug-iphoneos/FMDB.framework"; sourceTree = "<group>"; };
+		A529E7B81CF006B00014584C /* FMDB.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FMDB.framework; path = Carthage/Build/iOS/FMDB.framework; sourceTree = "<group>"; };
+		A529E7B91CF006B00014584C /* SwiftProtocolsCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftProtocolsCore.framework; path = Carthage/Build/iOS/SwiftProtocolsCore.framework; sourceTree = "<group>"; };
+		A529E7BA1CF006B00014584C /* SwiftProtocolsSQLite.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftProtocolsSQLite.framework; path = Carthage/Build/iOS/SwiftProtocolsSQLite.framework; sourceTree = "<group>"; };
+		A529E7BB1CF006B00014584C /* SwiftyBeaver.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyBeaver.framework; path = Carthage/Build/iOS/SwiftyBeaver.framework; sourceTree = "<group>"; };
 		A53D108F1B5B45990071984E /* SwiftAdaptersFMDB.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftAdaptersFMDB.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A53D10991B5B45990071984E /* SwiftAdaptersFMDBTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftAdaptersFMDBTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		A53D10A91B5B49F20071984E /* SwiftProtocolsSQLite.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftProtocolsSQLite.framework; path = "Carthage/Checkouts/swift-protocols-sqlite/build/Debug-iphoneos/SwiftProtocolsSQLite.framework"; sourceTree = "<group>"; };
-		A53D10EF1B5BF2220071984E /* fmdbframework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = fmdbframework.framework; path = "Carthage/Checkouts/fmdb/build/Debug-iphoneos/fmdbframework.framework"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -43,8 +46,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A5002D9C1CBF259700AE9ECC /* FMDB.framework in Frameworks */,
-				A53D10AA1B5B49F20071984E /* SwiftProtocolsSQLite.framework in Frameworks */,
+				A529E7BC1CF006B00014584C /* FMDB.framework in Frameworks */,
+				A529E7BD1CF006B00014584C /* SwiftProtocolsCore.framework in Frameworks */,
+				A529E7BE1CF006B00014584C /* SwiftProtocolsSQLite.framework in Frameworks */,
+				A529E7BF1CF006B00014584C /* SwiftyBeaver.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -95,9 +100,10 @@
 		A53D10851B5B45990071984E = {
 			isa = PBXGroup;
 			children = (
-				A5002D9B1CBF259700AE9ECC /* FMDB.framework */,
-				A53D10EF1B5BF2220071984E /* fmdbframework.framework */,
-				A53D10A91B5B49F20071984E /* SwiftProtocolsSQLite.framework */,
+				A529E7B81CF006B00014584C /* FMDB.framework */,
+				A529E7B91CF006B00014584C /* SwiftProtocolsCore.framework */,
+				A529E7BA1CF006B00014584C /* SwiftProtocolsSQLite.framework */,
+				A529E7BB1CF006B00014584C /* SwiftyBeaver.framework */,
 				A53D10911B5B45990071984E /* SwiftAdaptersFMDB */,
 				A53D109D1B5B45990071984E /* SwiftAdaptersFMDBTests */,
 				A53D10901B5B45990071984E /* Products */,
@@ -360,6 +366,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SRCROOT)/**",
 					"$(PROJECT_DIR)/Carthage/Checkouts/fmdb/build/Debug-iphoneos",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = "SwiftAdaptersFMDB/Supporting Files/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -382,6 +389,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SRCROOT)/**",
 					"$(PROJECT_DIR)/Carthage/Checkouts/fmdb/build/Debug-iphoneos",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = "SwiftAdaptersFMDB/Supporting Files/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
